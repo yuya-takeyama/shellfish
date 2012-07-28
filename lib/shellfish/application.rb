@@ -50,6 +50,7 @@ module Shellfish
       puts "OK"
       show_string output
       puts "Congratulations!"
+      puts
       raise NextProblemException
     end
 
