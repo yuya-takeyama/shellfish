@@ -14,6 +14,7 @@ module Shellfish
       @argv   = argv
       if @argv.empty?
         @argv = [File.expand_path('../../examples/fizzbuzz.rb', File.dirname(__FILE__))]
+      end
       @loader = ProblemLoader.new
       @differ = RSpec::Expectations::Differ.new
     end
