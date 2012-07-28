@@ -1,6 +1,6 @@
 # Shellfish
 
-TODO: Write a gem description
+Solve problem, learn shell commands.
 
 ## Installation
 
@@ -18,7 +18,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    $ shellfish PROBLEM_DEFINITION_FILE [...]
+
+## Writing Problem Definition File
+
+It's can be written with DSL.
+
+   subject "Subject of the problem"
+   desc "Description of the problem"
+   expected "Expected output"
 
 ## Contributing
 
