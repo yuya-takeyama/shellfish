@@ -1,5 +1,6 @@
 subject "FizzBuzz (1 ~ 15)"
-expected <<EOS
+
+__END__
 1
 2
 Fizz
@@ -15,4 +16,3 @@ Fizz
 13
 14
 FizzBuzz
-EOS
