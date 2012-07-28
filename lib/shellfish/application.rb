@@ -60,7 +60,7 @@ module Shellfish
 
     def on_ng(problem, input, output)
       puts "NG"
-      show_string @differ.diff_as_string(output, problem.expected_result)
+      show_string @differ.diff_as_string(output, problem.expected_result).gsub(/^\n+/, '')
     end
 
     def on_skip
