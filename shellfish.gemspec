@@ -14,4 +14,7 @@ Gem::Specification.new do |gem|
   gem.name          = "shellfish"
   gem.require_paths = ["lib"]
   gem.version       = Shellfish::VERSION
+
+  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'guard-rspec'
 end
