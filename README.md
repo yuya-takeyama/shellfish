@@ -25,7 +25,7 @@ Or install it yourself as:
 It's can be written with DSL.
 
    subject "Subject of the problem"
-   summary "Summary of the problem"
+   desc "Description of the problem"
    expected "Expected output"
 
 ## Contributing
