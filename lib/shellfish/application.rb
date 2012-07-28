@@ -16,8 +16,11 @@ module Shellfish
     end
 
     def start
+      @problem_count = @argv.size
+      @current_count = 1
       @argv.each do |file|
         try_problem @loader.load(file)
+        @current_count += 1
       end
     rescue QuitException
       puts "Quitting shellfish..."
@@ -29,6 +32,7 @@ module Shellfish
       show_problem(problem)
       while input = ::Readline.readline('shellfish $ ', true)
         begin
+        on_skip if input =~ /^\s*:(?:skip|next)\s*$/
         on_quit if input =~ /^\s*(?::?exit|:quit)\s*$/
         on_show_problem(problem) if input =~ /^\s*:show\s*$/
 
@@ -59,6 +63,11 @@ module Shellfish
       show_string @differ.diff_as_string(output, problem.expected_result)
     end
 
+    def on_skip
+      puts "Skipped"
+      raise NextProblemException
+    end
+
     def on_quit
       raise QuitException
     end
@@ -69,7 +78,7 @@ module Shellfish
     end
 
     def show_problem(problem)
-      puts "Problem: #{problem.subject}" if problem.subject?
+      puts "Problem (#{@current_count}/#{@problem_count}): #{problem.subject}"
       puts "Description: #{problem.description}" if problem.desc?
       puts "Expected Result:"
       show_string problem.expected_result
