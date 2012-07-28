@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
   gem.version       = Shellfish::VERSION
 
   gem.add_dependency 'diff-lcs', '~> 1.1.3'
+  gem.add_dependency 'termcolor'
   gem.add_dependency 'rspec-expectations'
 
   gem.add_development_dependency 'rspec'

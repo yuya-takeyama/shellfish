@@ -1,5 +1,6 @@
 require 'shellfish/problem_loader'
 require 'rspec/expectations/differ'
+require 'termcolor'
 require 'optparse'
 require 'readline'
 
@@ -60,20 +61,22 @@ module Shellfish
     end
 
     def on_ok(problem, input, output)
-      puts "OK"
+      puts "<green>OK</green>".termcolor
+      puts
       show_string output
-      puts "Congratulations!"
+      puts "<green>Congratulations!</green>".termcolor
       puts
       raise NextProblemException
     end
 
     def on_ng(problem, input, output)
-      puts "NG"
+      puts "<red>NG</red>".termcolor
+      puts
       show_string @differ.diff_as_string(output, problem.expected_result).gsub(/^\n+/, '')
     end
 
     def on_skip
-      puts "Skipped"
+      puts "<yellow>Skipped</yellow>".termcolor
       raise NextProblemException
     end
 
@@ -87,9 +90,11 @@ module Shellfish
     end
 
     def show_problem(problem)
-      puts "Problem (#{@current_count}/#{@problem_count}): #{problem.subject}"
+      puts ("<bold><blue>Problem</blue> (#{@current_count}/#{@problem_count}): " +
+            "#{problem.subject}</bold>").termcolor
       puts "Description: #{problem.description}" if problem.desc?
-      puts "Expected Result:"
+      puts
+      puts "<cyan><bold>Expected Result:</bold></cyan>".termcolor
       show_string problem.expected_result
       puts
     end
