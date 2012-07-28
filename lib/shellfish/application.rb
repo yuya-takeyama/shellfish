@@ -72,7 +72,7 @@ module Shellfish
     def on_ng(problem, input, output)
       puts "<red>NG</red>".termcolor
       puts
-      show_string @differ.diff_as_string(output, problem.expected_result).gsub(/^\n+/, '')
+      show_diff output, problem.expected_result
     end
 
     def on_skip
@@ -87,6 +87,23 @@ module Shellfish
     def on_show_problem(problem)
       show_problem problem
       raise SkipEvaluationException
+    end
+
+    def show_diff(output, expected)
+      diff = @differ.diff_as_string(output, expected).gsub(/^\n+/, '')
+      colored_diff = ''
+      diff.each_line do |line|
+        if line[0] == '@'
+          colored_diff += "<green><bold>#{line}</bold></green>".termcolor
+        elsif line[0] == '+'
+          colored_diff += "<blue><bold>#{line}</bold></blue>".termcolor
+        elsif line[0] == '-'
+          colored_diff += "<red><bold>#{line}</bold></red>".termcolor
+        else
+          colored_diff += line
+        end
+      end
+      show_string colored_diff
     end
 
     def show_problem(problem)
