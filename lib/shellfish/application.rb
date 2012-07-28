@@ -6,12 +6,14 @@ module Shellfish
   class Application
     def initialize(argv)
       @argv   = argv
+      @argv   = [File.expand_path('../../examples/fizzbuzz.rb', File.dirname(__FILE__))]
       @loader = ProblemLoader.new
       @differ = RSpec::Expectations::Differ.new
     end
 
     def start
       @problem = @loader.load(@argv[0])
+      show_problem
       while buf = ::Readline.readline('shellfish $ ', true)
         break if buf =~ /^\s*:?exit\s*$/
         if buf =~ /^\s*:show\s*$/
@@ -36,7 +38,8 @@ module Shellfish
     def show_problem
       puts "Problem: #{@problem.subject}" if @problem.subject?
       puts "Description: #{@problem.description}" if @problem.desc?
-      puts "Expected Result:\n#{@problem.expected_result}"
+      puts "Expected Result:"
+      show_string @problem.expected_result
       puts
     end
 
