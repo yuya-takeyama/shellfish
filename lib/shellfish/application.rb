@@ -1,5 +1,6 @@
 require 'shellfish/problem_loader'
 require 'rspec/expectations/differ'
+require 'optparse'
 require 'readline'
 
 module Shellfish
@@ -16,6 +17,14 @@ module Shellfish
     end
 
     def start
+      opt = OptionParser.new
+      opt.version = VERSION
+
+      opt.parse!(@argv)
+      play
+    end
+
+    def play
       @problem_count = @argv.size
       @current_count = 1
       @argv.each do |file|
