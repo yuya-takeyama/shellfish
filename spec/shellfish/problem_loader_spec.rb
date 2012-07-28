@@ -24,6 +24,18 @@ module Shellfish
         let(:input) { 'expected "Expected result of the problem"' }
         its(:expected) { should == "Expected result of the problem" }
       end
+
+      context 'has expected result as data field' do
+        let(:input) {
+          "expected :data\n" +
+          "__END__\n" +
+          "foo\n" +
+          "bar\n" +
+          "baz\n"
+        }
+
+        its(:expected) { should == "foo\nbar\nbaz\n" }
+      end
     end
   end
 end

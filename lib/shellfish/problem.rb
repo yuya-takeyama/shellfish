@@ -1,6 +1,8 @@
 module Shellfish
   class Problem
     attr_accessor :subject, :description, :expected_result
+    alias expected expected_result
+    alias expected= expected_result=
 
     def subject?
       !(@subject.nil?)

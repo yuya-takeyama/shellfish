@@ -11,12 +11,15 @@ module Shellfish
     end
 
     def load_from_string(input)
+      dsl, data = input.split("__END__\n")
       script = <<-EOS
         Shellfish::ProblemDsl.new(Shellfish::Problem.new) {
-          #{input}
+          #{dsl}
         }.problem
       EOS
-      eval script, TOPLEVEL_BINDING
+      problem = eval script, TOPLEVEL_BINDING
+      problem.expected_result = data if data
+      problem
     end
   end
 end
