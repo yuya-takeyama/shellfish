@@ -1,4 +1,5 @@
 require 'shellfish/problem_loader'
+require 'rspec/expectations/differ'
 require 'readline'
 
 module Shellfish
@@ -6,6 +7,7 @@ module Shellfish
     def initialize(argv)
       @argv   = argv
       @loader = ProblemLoader.new
+      @differ = RSpec::Expectations::Differ.new
     end
 
     def start
@@ -17,7 +19,15 @@ module Shellfish
           next
         end
         got = `#{buf}`
-        print got
+        if @problem.expected_result != got
+          puts "NG"
+          show_string @differ.diff_as_string(got, @problem.expected_result)
+        else
+          puts "OK"
+          show_string got
+          puts "Congratulations!"
+          break
+        end
         puts
       end
       puts "Good bye."
@@ -28,6 +38,13 @@ module Shellfish
       puts "Description: #{@problem.description}" if @problem.desc?
       puts "Expected Result:\n#{@problem.expected_result}"
       puts
+    end
+
+    def show_string(string)
+      puts "-" * 72
+      print string
+      puts
+      puts "-" * 72
     end
   end
 end
