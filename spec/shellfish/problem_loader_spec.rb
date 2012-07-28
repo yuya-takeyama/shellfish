@@ -19,6 +19,11 @@ module Shellfish
         let(:input) { 'desc "Description of the problem"' }
         its(:description) { should == "Description of the problem" }
       end
+
+      context 'has expected result' do
+        let(:input) { 'expected "Expected result of the problem"' }
+        its(:expected) { should == "Expected result of the problem" }
+      end
     end
   end
 end

@@ -15,5 +15,9 @@ module Shellfish
       @problem.description = text
     end
     alias desc description
+
+    def expected(text)
+      @problem.expected = text
+    end
   end
 end
