@@ -6,14 +6,20 @@ module Shellfish
   class Application
     def initialize(argv)
       @argv   = argv
-      @argv   = [File.expand_path('../../examples/fizzbuzz.rb', File.dirname(__FILE__))]
+      @argv   = [File.expand_path('../../examples/fizzbuzz.rb', File.dirname(__FILE__))] if @argv.empty?
       @loader = ProblemLoader.new
       @differ = RSpec::Expectations::Differ.new
     end
 
     def start
-      @problem = @loader.load(@argv[0])
-      show_problem
+      @argv.each do |file|
+        try_problem @loader.load(file)
+      end
+      puts "Good bye."
+    end
+
+    def try_problem(problem)
+      show_problem(problem)
       while buf = ::Readline.readline('shellfish $ ', true)
         break if buf =~ /^\s*:?exit\s*$/
         if buf =~ /^\s*:show\s*$/
@@ -21,9 +27,9 @@ module Shellfish
           next
         end
         got = `#{buf}`
-        if @problem.expected_result != got
+        if problem.expected_result != got
           puts "NG"
-          show_string @differ.diff_as_string(got, @problem.expected_result)
+          show_string @differ.diff_as_string(got, problem.expected_result)
         else
           puts "OK"
           show_string got
@@ -32,14 +38,13 @@ module Shellfish
         end
         puts
       end
-      puts "Good bye."
     end
 
-    def show_problem
-      puts "Problem: #{@problem.subject}" if @problem.subject?
-      puts "Description: #{@problem.description}" if @problem.desc?
+    def show_problem(problem)
+      puts "Problem: #{problem.subject}" if problem.subject?
+      puts "Description: #{problem.description}" if problem.desc?
       puts "Expected Result:"
-      show_string @problem.expected_result
+      show_string problem.expected_result
       puts
     end
 
