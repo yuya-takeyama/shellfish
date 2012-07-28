@@ -12,7 +12,8 @@ module Shellfish
   class Application
     def initialize(argv)
       @argv   = argv
-      @argv   = [File.expand_path('../../examples/fizzbuzz.rb', File.dirname(__FILE__))] if @argv.empty?
+      if @argv.empty?
+        @argv = [File.expand_path('../../examples/fizzbuzz.rb', File.dirname(__FILE__))]
       @loader = ProblemLoader.new
       @differ = RSpec::Expectations::Differ.new
     end
