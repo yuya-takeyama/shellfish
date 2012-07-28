@@ -107,12 +107,12 @@ module Shellfish
     end
 
     def show_problem(problem)
-      puts ("<bold><blue>Problem</blue> (#{@current_count}/#{@problem_count}): " +
-            "#{problem.subject}</bold>").termcolor
+      puts ("<blue>Problem</blue> (#{@current_count}/#{@problem_count}): " +
+            "<bold>#{problem.subject}</bold>").termcolor
       puts "Description: #{problem.description}" if problem.desc?
       puts
-      puts "<cyan><bold>Expected Result:</bold></cyan>".termcolor
-      show_string problem.expected_result
+      puts "<bold>Expected Result:</bold>".termcolor
+      show_string "<cyan>#{problem.expected_result}</cyan>".termcolor
       puts
     end
 
