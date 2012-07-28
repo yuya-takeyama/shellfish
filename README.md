@@ -24,9 +24,21 @@ Or install it yourself as:
 
 It's can be written with DSL.
 
-   subject "Subject of the problem"
-   desc "Description of the problem"
-   expected "Expected output"
+```ruby
+subject "Subject of the problem"
+desc "Description of the problem"
+expected "Expected output"
+```
+
+Expected result can be written also using `__END__`
+
+```ruby
+subject "Subject of the problem"
+desc "Description of the problem"
+
+__END__
+Expected output
+```
 
 ## Contributing
 
