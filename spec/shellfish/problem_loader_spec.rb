@@ -27,7 +27,6 @@ module Shellfish
 
       context 'has expected result as data field' do
         let(:input) {
-          "expected :data\n" +
           "__END__\n" +
           "foo\n" +
           "bar\n" +
