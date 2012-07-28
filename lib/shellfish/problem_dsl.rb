@@ -16,8 +16,9 @@ module Shellfish
     end
     alias desc description
 
-    def expected(text)
-      @problem.expected = text
+    def expected_result(text)
+      @problem.expected_result = text
     end
+    alias expected expected_result
   end
 end

@@ -1,3 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'shellfish'
+require 'shellfish/application'
+
+app = Shellfish::Application.new(ARGV.dup)
+app.start
